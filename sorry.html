@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Sorry 🧸❤️</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  height:100vh;
+  font-family:Poppins,sans-serif;
+  background:#000;
+  color:white;
+  overflow:hidden;
+}
+
+/* NETFLIX ROMANTIC BACKGROUND */
+.bg{
+  position:fixed;
+  inset:0;
+  background:
+    radial-gradient(circle at top, rgba(229,9,20,0.35), transparent 60%),
+    radial-gradient(circle at bottom, rgba(255,80,150,0.25), transparent 55%),
+    linear-gradient(180deg,#050505,#160000);
+}
+
+/* GLOW BORDER */
+.frame{
+  position:fixed;
+  inset:12px;
+  border-radius:22px;
+  border:2px solid #e50914;
+  box-shadow:0 0 25px rgba(229,9,20,0.6);
+  animation:glow 2s infinite alternate;
+  pointer-events:none;
+}
+
+@keyframes glow{
+  from{box-shadow:0 0 10px #e50914}
+  to{box-shadow:0 0 35px #e50914}
+}
+
+/* TEDDY RUN */
+#teddy{
+  position:absolute;
+  left:-140px;
+  bottom:120px;
+  font-size:100px;
+  animation:runIn 3.5s steps(8) forwards;
+}
+
+@keyframes runIn{
+  from{ left:-140px; }
+  to{ left:50%; transform:translateX(-50%); }
+}
+
+/* HEART HELD */
+#heldHeart{
+  display:none;
+  font-size:40px;
+  position:absolute;
+  top:-10px;
+  right:-20px;
+}
+
+/* CARD */
+.card{
+  position:absolute;
+  top:55%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  background:rgba(0,0,0,0.75);
+  padding:26px;
+  border-radius:22px;
+  width:90%;
+  max-width:360px;
+  text-align:center;
+  box-shadow:0 0 25px rgba(229,9,20,0.4);
+}
+
+.animals{
+  font-size:20px;
+  opacity:0.4;
+  transform:scale(0.6);
+  transition:0.6s ease;
+  margin-bottom:10px;
+}
+
+#message{
+  min-height:36px;
+  font-size:0.95rem;
+}
+
+/* BUTTONS */
+button{
+  padding:12px 24px;
+  margin:8px;
+  border:none;
+  border-radius:25px;
+  font-size:1rem;
+  cursor:pointer;
+  transition:0.3s ease;
+}
+
+#yesBtn{
+  background:#e50914;
+  color:white;
+}
+
+#noBtn{
+  background:#333;
+  color:white;
+}
+
+.hidden{display:none}
+
+/* FLOATING HEARTS */
+.heart{
+  position:fixed;
+  bottom:-20px;
+  font-size:18px;
+  animation:floatUp 4s linear forwards;
+}
+
+@keyframes floatUp{
+  to{ transform:translateY(-110vh); opacity:0 }
+}
+</style>
+</head>
+
+<body>
+
+<div class="bg"></div>
+<div class="frame"></div>
+
+<div id="teddy">
+  🧸
+  <span id="heldHeart">❤️</span>
+</div>
+
+<div class="card" id="card">
+  <h2>shivii maaf krde pls 🥺</h2>
+
+  <div class="animals" id="animals">🐶😢 🐱😢 🐰😢</div>
+
+  <div id="message"></div>
+
+  <button id="yesBtn" onclick="yesClick()">Yes 💖</button>
+  <button id="noBtn" onclick="noClick()">No 😤</button>
+</div>
+
+<!-- MUSIC -->
+<audio id="music" loop>
+  <source src="bg.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+/* MUSIC (ANDROID SAFE) */
+const music=document.getElementById("music");
+document.addEventListener("click",()=>{
+  music.volume=0;
+  music.play().catch(()=>{});
+  let v=0;
+  const fade=setInterval(()=>{
+    if(v<0.8){v+=0.02;music.volume=v;}
+    else clearInterval(fade);
+  },150);
+},{once:true});
+
+/* SHOW HEART AFTER RUN */
+setTimeout(()=>{
+  document.getElementById("heldHeart").style.display="inline";
+},3500);
+
+/* HEART PARTICLES */
+setInterval(()=>{
+  const h=document.createElement("div");
+  h.className="heart";
+  h.textContent="💖";
+  h.style.left=Math.random()*100+"%";
+  document.body.appendChild(h);
+  setTimeout(()=>h.remove(),4000);
+},600);
+
+/* NO BUTTON LOGIC */
+let noCount=0;
+const noMessages=[
+  "Please shivii 🥺",
+  "baddie bohot sorry hai 🧸",
+  "Galti ho gayi 😭",
+  "Dil se maafi 😞",
+  "Mat kar aisa 😢",
+  "Ek chance pls 🙏",
+  "Animals bhi sad hain 🐶😢",
+  "baddie toot raha hai 💔",
+  "Bas maan ja 😣",
+  "Last time pls…"
+];
+
+function noClick(){
+  if(noCount<10){
+    message.textContent=noMessages[noCount];
+    noCount++;
+    noBtn.style.transform=`scale(${1-noCount*0.07})`;
+  }else{
+    noBtn.classList.add("hidden");
+    message.textContent="No option chala gaya 😌";
+  }
+}
+
+/* YES CLICK */
+function yesClick(){
+  const animals=document.getElementById("animals");
+  animals.textContent="🐶🥰 🐱🥰 🐰🥰";
+  animals.style.opacity="1";
+  animals.style.transform="scale(1)";
+
+  card.innerHTML=`
+    <h2>Thank you shivii 🧸❤️</h2>
+    <div class="animals" style="opacity:1;transform:scale(1);font-size:30px">
+      🐶🥰 🐱🥰 🐰🥰
+    </div>
+    <p>Sab khush ho gaye 😭💖</p>
+  `;
+}
+</script>
+
+</body>
+</html>
